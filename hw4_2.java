@@ -29,15 +29,13 @@ public class hw4_2 {
     }
 
     public static int dequeue(LinkedList<Integer> ll) { // возвращает первый элемент из очереди и удаляет его
-        int num = 0;
-        num = ll.get(0);
+        int num = ll.get(0);
         ll.remove(0);
         return num;
     }
 
     public static int first(LinkedList<Integer> ll) { // возвращает первый элемент из очереди, не удаляя
-        int num = 0;
-        num = ll.get(0);
+        int num = ll.get(0);
         return num;
     }
 
