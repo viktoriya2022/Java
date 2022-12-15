@@ -1,139 +1,86 @@
+
+
+// 1. Создать класс Ноутбук для магазина техники. Добавить атрибуты класса с соответствующими типами.
+// 2. Добавить конструктор класса. Добавить необходимые методы класса.
+// 3. Создать множество ноутбуков (множество объектов класса ноутбук) 3-10 штук. Написать метод, 
+// который будет запрашивать у пользователя критерий фильтрации (один) и выведет ноутбуки, отвечающие критерию.
+// ==============================================================================
 package Final_Project_Laptop;
 
-public class Laptop {
-    int id;
-    String tm, model, colour, os;
-    int ram, hd, price;
-    double screen;
+import java.util.Scanner;
 
-    public Laptop(int id, String tm, String colour, String os, int ram, int hd, int price, Double screen) {
-        this.id = id;
-        this.tm = tm;
-        this.colour = colour;
-        this.ram = ram;
-        this.hd = hd;
-        this.os = os;
-        this.price = price;
-        this.screen = screen;
+public class Program_Laptop {
+    public static void main(String[] args) {
 
-    }
+        Laptop lt1 = new Laptop(101, "HP", "black", "WindowsHome", 4, 256, 30_000, 15.6);
+        Laptop lt2 = new Laptop(102, "Digma", "silver", "WindowsHome", 4, 256, 12_600, 14.0);
+        Laptop lt3 = new Laptop(103, "Acer", "black", "Linyx", 8, 256, 31_600, 15.6);
+        Laptop lt4 = new Laptop(104, "HP", "blue", "WindowsHome", 8, 256, 37_000, 14.0);
+        Laptop lt5 = new Laptop(105, "Lenovo", "blue", "WindowsPro", 12, 128, 21_000, 16.0);
 
-    public static StringBuilder getLaptopByTm(Laptop[] lt, String tm) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (tm.equalsIgnoreCase(c.tm)) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
+        Laptop[] lt = new Laptop[] { lt1, lt2, lt3, lt4, lt5 };
+
+        System.out.println("");
+        System.out.println(
+                "Введите критерий отбора: \n1 - наименование\n2 - HD\n3 - RAM\n4 - OS \n5 - цвет\n6 - цена\n7 - диагональ экрана\n8 - вывести на экран весь каталог");
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+
+        switch (num) {
+            case 1:
+                System.out.println("Введите наменование: ");
+                Scanner sc1 = new Scanner(System.in);
+                System.out.println(Laptop.getLaptopByTm(lt, sc1.nextLine()));
+                break;
+            case 2:
+                System.out.println("Введите желаемый размер HD:");
+                int hd = sc.nextInt();
+                System.out.println("Ноутбуки c жестким диском " + hd + "ГБ :");
+                System.out.println(Laptop.getLaptopByHD(lt, hd));
+                break;
+            case 3:
+                System.out.println("Введите желаемый размер RAM:");
+                int ram = sc.nextInt();
+                System.out.println("Ноутбуки c RAM " + ram + "ГБ :");
+                System.out.println(Laptop.getLaptopByRAM(lt, ram));
+                break;
+            case 4:
+                System.out.println("Введите OS: ");
+                Scanner sc2 = new Scanner(System.in);
+                System.out.println(Laptop.getLaptopByOS(lt, sc2.nextLine()));
+                break;
+            case 5:
+                System.out.println("Введите желаемый цвет: ");
+                Scanner sc3 = new Scanner(System.in);
+                System.out.println(Laptop.getLaptopByColour(lt, sc3.nextLine()));
+                break;
+            case 6:
+                System.out.println("Введите нижнюю границу цены: ");
+                int price_min = sc.nextInt();
+                System.out.println("Введите верхнюю границу цены: ");
+                int price_max = sc.nextInt();
+                System.out.println("Ноутбуки в указанном ценовом диапазоне: ");
+                System.out.println(Laptop.getLaptopByPrice(lt, price_min, price_max));
+                break;
+            case 7:
+                System.out.println("Введите размер монитора: ");
+                double scr = sc.nextDouble();
+                System.out.println("Ноутбуки c диагональю экрана " + scr + "'' :");
+                System.out.println(Laptop.getLaptopByScreen(lt, scr));
+                break;
+            case 8:
+                System.out.println("В наличии: ");
+                System.out.println(lt1.toString());
+                System.out.println(lt2.toString());
+                System.out.println(lt3.toString());
+                System.out.println(lt4.toString());
+                System.out.println(lt5.toString());
+                break;
+            default:
+                System.out.println("Мимо. Введите число от 1 до 8. ");
         }
-        return result;
-    }
 
-    public static StringBuilder getLaptopByHD(Laptop[] lt, int hd) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (hd == c.hd) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    public static StringBuilder getLaptopByRAM(Laptop[] lt, int ram) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (ram == c.ram) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    public static StringBuilder getLaptopByOS(Laptop[] lt, String os) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (c.os.contains(os)) {
-            // if (os.equalsIgnoreCase(c.os)) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    public static StringBuilder getLaptopByColour(Laptop[] lt, String colour) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (colour.equalsIgnoreCase(c.colour)) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    public static StringBuilder getLaptopByPrice(Laptop[] lt, int price_min, int price_max) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (c.price >= price_min && c.price <= price_max) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    public static StringBuilder getLaptopByScreen(Laptop[] lt, Double scr) {
-        StringBuilder result = new StringBuilder();
-        for (Laptop c : lt) {
-            if (scr == c.screen) {
-                result.append("tm: " + c.tm + ", ");
-                result.append("colour: " + c.colour + ", ");
-                result.append("HD: " + c.hd + ", ");
-                result.append("RAM: " + c.ram + ", ");
-                result.append("OS: " + c.os + ", ");
-                result.append("price: " + c.price + ", ");
-                result.append("screen: " + c.screen + "\n");
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public String toString() { // выводит на печать инфу по каждому ноуту
-        return String.format("id: %d, TM: %s, RAM: %d, HD: %d, screen: %.1f, colour: %s, price: %d",
-                id, tm, ram, hd, screen, colour, price);
+        sc.close();
     }
 }
